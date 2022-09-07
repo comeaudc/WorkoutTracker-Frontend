@@ -3,25 +3,20 @@ import { getWorkout, deleteWorkout } from "../services/tracker-api";
 import { useNavigate, useParams } from "react-router-dom";
 import ExHistory from "./ExHistory";
 
+
 const Workout = () => {
     const nav = useNavigate()
     const {id} = useParams()
     const [workout, setWorkout] = useState({})
-    const [exercises, setExercises] = useState([])
 
     useEffect(() => {
         getWorkout(id)
         .then(res => setWorkout(res.data))
     })
 
-    useEffect(() => {
-        getWorkout(id)
-        .then(res => setExercises(res.data.exercises))
-    })
-
-    const deleteTheWorkout = () => {
-        deleteWorkout(id)
-        nav('/history')
+    const deleteTheWorkout = async () => {
+        await deleteWorkout(id)
+        await nav('/history')
     }
 
     return (
@@ -30,7 +25,7 @@ const Workout = () => {
             <h3>{workout.date}</h3>
             <button onClick={deleteTheWorkout}>Delete Workout</button>
             <ul>
-                {exercises.map((exercise) => {
+                {workout.exercises && workout.exercises.map((exercise) => {
                     return <ExHistory  exercise={exercise} />
                 })}
             </ul>

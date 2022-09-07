@@ -36,6 +36,12 @@ export const createWorkout = (workout) => {
     return response
 }
 
+export const editWorkout = (id, updatedWorkout) => {
+    const URL = `http://localhost:3001/tracker/history/${id}`
+    const response = axios.put(URL, updatedWorkout)
+    return response
+}
+
 export const deleteExercise = (id) => {
     const URL = `http://localhost:3001/tracker/exercises/${id}`
     const response = axios.delete(URL)

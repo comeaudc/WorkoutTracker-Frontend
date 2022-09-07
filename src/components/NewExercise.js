@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { createExercise } from "../services/tracker-api"
 
-const NewExercise = () => {
+const NewExercise = ({setExerciseList, setOpen, isNewExerciseOpen, setNewExerciseOpen }) => {
     const nav = useNavigate();
 
     const createtheExercise = (e) => {
@@ -13,9 +13,16 @@ const NewExercise = () => {
             reps: e.target.reps.value,
             weight: e.target.weight.value
         }
+
         createExercise(exercise)
-        console.log(exercise)
-        nav('/exercises')
+
+        if(isNewExerciseOpen){
+            setNewExerciseOpen(false)
+            setExerciseList(exerciseList => [...exerciseList, exercise])
+        } else {
+            nav('/')
+        }
+        
     }
     return (
         <div>

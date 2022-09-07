@@ -9,8 +9,11 @@ import NewExercise from './components/NewExercise';
 import NewWorkout from './components/NewWorkout';
 import Exercise from './components/Exercise';
 import Workout from './components/Workout';
+import EditWorkout from './components/EditWorkout';
+import { useState } from 'react';
 
 function App() {
+  const [isNewExerciseOpen, setNewExerciseOpen] = useState(false)
   return (
     <div className="App">
       
@@ -20,9 +23,10 @@ function App() {
           <Route path='/' element={<NewWorkout />} />
           <Route path='exercises' element={<Exercises />} />
           <Route path='exercises/:id' element={<Exercise />} />
-          <Route path='newexercise' element={<NewExercise />} />
+          <Route path='newexercise' element={<NewExercise isNewExerciseOpen={isNewExerciseOpen} />} />
           <Route path='history' element={<PrevWorkouts />} />
           <Route path='history/:id' element={ <Workout />} />
+          <Route path='history/:id/edit' element={ <EditWorkout setNewExerciseOpen={setNewExerciseOpen} isNewExerciseOpen={isNewExerciseOpen} />} />
         </Routes>
       </Router>
     </div>

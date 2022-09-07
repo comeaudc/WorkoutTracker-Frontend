@@ -8,10 +8,11 @@ const NewWorkout = () => {
         const workout = {
             muscleGroup: e.target.muscleGroup.value,
             date: e.target.date.value,
-            workout: e.target.workout.value
+            exercises: [],
+            complete: false
         }
         createWorkout(workout)
-        nav('/history')
+        nav(`/history`)
     }
 
     return (
@@ -28,8 +29,7 @@ const NewWorkout = () => {
                     </select><br/>
                 </label>
                 <input type="hidden" name="date" value={Date.now()} /><br/>
-                <input type="hidden" name="workout" value={[]} />
-                <input type="submit" value="Begin Workout" />
+                <input type="submit" value="Create New Workout" />
             </form>
         </div>
     )
