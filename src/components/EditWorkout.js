@@ -17,7 +17,7 @@ const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
   const [workout, setWorkout] = useState({});
   const [exercises, setExercises] = useState([]);
   const [exerciseList, setExerciseList] = useState([]);
-  const [submit, setSubmit] = useState(true)
+  const [submit, setSubmit] = useState(1)
 
   useEffect(() => {
     getWorkout(id).then((res) => setWorkout(res.data));

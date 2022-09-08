@@ -90,7 +90,7 @@ const ExWorkoutInput = ({ exercise, workout, setWorkout, id, submit, setSubmit }
       complete: workout.complete,
     };
     editWorkout(id, updatedWorkout);
-    setSubmit(submit => !submit)
+    setSubmit(submit + 1)
     await setIsOpen(false);
   };
 
