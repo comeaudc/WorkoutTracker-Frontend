@@ -36,6 +36,12 @@ export const createWorkout = (workout) => {
     return response
 }
 
+export const editExercise = (id, updatedExerise) => {
+    const URL = `https://trackerbackenddcc.herokuapp.com/tracker/exercises/${id}`
+    const response = axios.put(URL, updatedExerise)
+    return response
+}
+
 export const editWorkout = (id, updatedWorkout) => {
     const URL = `https://trackerbackenddcc.herokuapp.com/tracker/history/${id}`
     const response = axios.put(URL, updatedWorkout)
