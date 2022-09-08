@@ -1,84 +1,150 @@
-import { useEffect, useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { getWorkout, getExercises, getExercise, editWorkout } from "../services/tracker-api"
-import ExWorkoutInput from "./ExWorkoutInput"
-import ExHistory from "./ExHistory" 
-import NewExercise from "./NewExercise"
-import ExList from "./ExList"
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  getWorkout,
+  getExercises,
+  getExercise,
+  editWorkout,
+} from "../services/tracker-api";
+import ExWorkoutInput from "./ExWorkoutInput";
+import ExHistory from "./ExHistory";
+import NewExercise from "./NewExercise";
+import ExList from "./ExList";
 
-const EditWorkout = ({isNewExerciseOpen, setNewExerciseOpen}) => {
-    const {id} = useParams()
-    const nav = useNavigate()
-    const [workout, setWorkout] = useState({})
-    const [exercises, setExercises] = useState ([])
-    const [exerciseList, setExerciseList] = useState([])
-    const [isExListOpen, setExListOpen] = useState(false)
+const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
+  const { id } = useParams();
+  const nav = useNavigate();
+  const [workout, setWorkout] = useState({});
+  const [exercises, setExercises] = useState([]);
+  const [exerciseList, setExerciseList] = useState([]);
 
-    useEffect(() => {
-        getWorkout(id)
-        .then(res => setWorkout(res.data))
-    }, [id])
+  useEffect(() => {
+    getWorkout(id).then((res) => setWorkout(res.data));
+  }, [id]);
 
-    useEffect(() => {
-        getExercises()
-        .then(res => setExercises(res.data))
-    }, [])
+  useEffect(() => {
+    getExercises().then((res) => setExercises(res.data));
+  }, []);
 
-    const buildTheWorkout = async (e) => {
-        e.preventDefault()
+  const date = () => {
+    let current = workout.date.slice(0, 10)
+    return current
+  }
 
-        await getExercise(e.target.list.value)
-        .then(res => { setExerciseList(exerciseList => [...exerciseList, res.data])})
-        setExListOpen(false)
-    }
+  const buildTheWorkout = async (e) => {
+    e.preventDefault();
 
-    const saveTheWorkout = async (e) => {
-        e.preventDefault()
-        const updatedWorkout = workout
-        await editWorkout(id, updatedWorkout)
-        nav(`/history/${id}`)
-    }
+    await getExercise(e.target.list.value).then((res) => {
+      setExerciseList((exerciseList) => [...exerciseList, res.data]);
+    });
+  };
 
-    const openNewEx = () => {
-        setNewExerciseOpen(!isNewExerciseOpen)
-    }
+  const saveTheWorkout = async (e) => {
+    e.preventDefault();
+    const updatedWorkout = workout;
+    updatedWorkout.complete = true;
+    await editWorkout(id, updatedWorkout);
+    nav(`/history/${id}`);
+  };
 
-    const openList = () => {
-        setExListOpen(!isExListOpen)
-    }
+  return (
+    <div className="container">
+      <div className=" title container-med">
+        <h2>{workout.muscleGroup}:</h2>
+        <h2>{workout.exercises && date()}</h2>
+      </div>
 
-    return (
-        <div>
-            <h2>{workout.muscleGroup}</h2>
-            <h4>{workout.date}</h4>
-            <div className="WorkoutBuilder">
-                {isExListOpen? <><ExList exercises={exercises} buildTheWorkout={buildTheWorkout}/><button onClick={openList}>Close List</button></> : <button onClick={openList}>Exerise List</button>}
-                
+      <div className="container container-sm">
+        <h4>Add Exercise</h4>
+        <button
+          className="btn btn-dark"
+          data-bs-toggle="modal"
+          data-bs-target="#list"
+        >
+          Exercise List
+        </button>
+        <button
+          className="btn btn-dark"
+          data-bs-toggle="modal"
+          data-bs-target="#new"
+        >
+          New Exercise
+        </button>
+        <form onSubmit={saveTheWorkout}>
+          <input type="hidden" name="muscleGroup" value={workout.muscleGroup} />
+          <input type="hidden" name="date" value={workout.date} />
+          <br />
+          <input type="hidden" name="exercises" value={workout.exercises} />
+          <input
+            className="btn btn-danger"
+            type="submit"
+            value="End & Save Workout"
+          />
+        </form>
 
-            {isNewExerciseOpen? 
-            <><NewExercise setExerciseList={setExerciseList} isNewExerciseOpen={isNewExerciseOpen} setNewExerciseOpen={setNewExerciseOpen}  setOpen={setNewExerciseOpen} /><button onClick={openNewEx}>Close</button></> : 
-            <button onClick={openNewEx}>New Execise?</button>}
-            
+        <div className="modal fade" id="list">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                Add Exercise:
+                <button
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  data-bs-target="#list"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <ExList
+                  exercises={exercises}
+                  buildTheWorkout={buildTheWorkout}
+                />
+              </div>
             </div>
-
-                {exerciseList && exerciseList.map((exercise) => {
-                    return <ExWorkoutInput workout={workout} setWorkout={setWorkout} id={id} exercise={exercise} />
-                })}
-
-                {workout.exercises && workout.exercises.map((exercise) => {
-                    return <ExHistory exercise={exercise} />
-                })}
-
-        <div>
-            <form onSubmit={saveTheWorkout}>
-                <input type="hidden" name="muscleGroup" value={workout.muscleGroup} />
-                <input type="hidden" name="date" value={workout.date} /><br/>
-                <input type="hidden" name="exercises" value={workout.exercises} />
-                <input type="submit" value="End & Save Workout" />
-            </form>
+          </div>
         </div>
+
+        <div className="modal fade" id="new">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                Add Exercise:
+                <button
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  data-bs-target="#new"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <NewExercise
+                  setExerciseList={setExerciseList}
+                  isNewExerciseOpen={isNewExerciseOpen}
+                  setNewExerciseOpen={setNewExerciseOpen}
+                  setOpen={setNewExerciseOpen}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-    )
-}
+      </div>
+
+      {exerciseList &&
+        exerciseList.map((exercise) => {
+          return (
+            <ExWorkoutInput
+              workout={workout}
+              setWorkout={setWorkout}
+              id={id}
+              exercise={exercise}
+            />
+          );
+        })}
+
+      {workout.exercises &&
+        workout.exercises.map((exercise) => {
+          return <ExHistory exercise={exercise} />;
+        })}
+    </div>
+  );
+};
 
 export default EditWorkout;

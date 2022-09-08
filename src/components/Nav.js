@@ -1,15 +1,25 @@
 import { Link } from "react-router-dom";
 
 const Nav = () => {
-    return (
-        <nav>
-            <Link to="/"><button>Home</button></Link>
-            <Link to="/exercises"><button>Exercises</button></Link>
-            <Link to="/newexercise"><button>New Exercise</button></Link>
-            <Link to='/history'><button>Current Workouts</button></Link>
-            <button to='/history'>Workout History</button>
-        </nav>
-    )
-}
+  return (
+    <nav>
+      <Link to="/">
+        <button className="btn btn-dark">Home</button>
+      </Link>
+      <Link to="/exercises">
+        <button className="btn btn-dark">Exercises</button>
+      </Link>
+      <Link to="/newexercise">
+        <button className="btn btn-dark">New Exercise</button>
+      </Link>
+      <Link to="/inprogress">
+        <button className="btn btn-dark">Current Workouts</button>
+      </Link>
+      <Link to="/history">
+        <button className="btn btn-dark">Workout History</button>
+      </Link>
+    </nav>
+  );
+};
 
 export default Nav;

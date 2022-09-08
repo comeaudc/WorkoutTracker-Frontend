@@ -1,7 +1,62 @@
-.App {
-  text-align: center;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #61dafb;
 }
-table{
+
+.App {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-decoration: underline;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+
+ul {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+form {
+  width: fit-content;
+  text-align: start;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  margin: 5px;
+}
+
+nav {
+  margin: 2px;
+  padding: 4px;
+  background-color: slategray;
+}
+table {
   margin-right: auto;
   margin-left: auto;
 }
