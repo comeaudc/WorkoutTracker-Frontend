@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getWorkout,
   getExercises,
@@ -17,19 +17,20 @@ const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
   const [workout, setWorkout] = useState({});
   const [exercises, setExercises] = useState([]);
   const [exerciseList, setExerciseList] = useState([]);
+  const [submit, setSubmit] = useState(true)
 
   useEffect(() => {
     getWorkout(id).then((res) => setWorkout(res.data));
-  }, [id]);
+  }, [id, submit]);
 
   useEffect(() => {
     getExercises().then((res) => setExercises(res.data));
   }, []);
 
   const date = () => {
-    let current = workout.date.slice(0, 10)
-    return current
-  }
+    let current = workout.date.slice(0, 10);
+    return current;
+  };
 
   const buildTheWorkout = async (e) => {
     e.preventDefault();
@@ -48,14 +49,18 @@ const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
   };
 
   return (
-    <div className="container">
-      <div className=" title container-med">
-        <h2>{workout.muscleGroup}:</h2>
-        <h2>{workout.exercises && date()}</h2>
+    <div className="top container">
+      <div className="card text-bg-dark">
+        <div className="card-body">
+          <div className=" title container-med">
+            <h2>{workout.muscleGroup}:</h2>
+            <h2>{workout.exercises && date()}</h2>
+          </div>
+        </div>
       </div>
 
-      <div className="container container-sm">
-        <h4>Add Exercise</h4>
+      <div className="editwo container container-sm">
+        <h4 className="text-light">Add Exercise</h4>
         <button
           className="btn btn-dark"
           data-bs-toggle="modal"
@@ -64,6 +69,7 @@ const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
           Exercise List
         </button>
         <button
+          onClick={setNewExerciseOpen(true)}
           className="btn btn-dark"
           data-bs-toggle="modal"
           data-bs-target="#new"
@@ -135,13 +141,19 @@ const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
               setWorkout={setWorkout}
               id={id}
               exercise={exercise}
+              submit={submit}
+              setSubmit={setSubmit}
             />
           );
         })}
 
       {workout.exercises &&
         workout.exercises.map((exercise) => {
-          return <ExHistory exercise={exercise} />;
+          if (exercise.reps.length > 0)
+            return <ExHistory exercise={exercise} />;
+          else {
+            <></>;
+          }
         })}
     </div>
   );

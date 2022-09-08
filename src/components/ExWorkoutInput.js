@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { editWorkout } from "../services/tracker-api";
 
-const ExWorkoutInput = ({ exercise, workout, setWorkout, id }) => {
+const ExWorkoutInput = ({ exercise, workout, setWorkout, id, submit, setSubmit }) => {
+  let current;
+
   const [repitition, setReps] = useState([]);
   const [weights, setWeight] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
@@ -39,23 +41,25 @@ const ExWorkoutInput = ({ exercise, workout, setWorkout, id }) => {
   }
 
   useEffect(() => {
-    updatedWorkout = {
-      muscleGroup: workout.muscleGroup,
-      date: workout.date,
-      exercises: [
-        ...workout.exercises,
-        {
-          focus: exercise.focus,
-          name: exercise.name,
-          sets: exercise.sets,
-          reprange: exercise.reprange,
-          reps: repitition,
-          weight: weights,
-        },
-      ],
-      complete: workout.complete,
+    current = {
+      focus: exercise.focus,
+      name: exercise.name,
+      sets: exercise.sets,
+      reprange: exercise.reprange,
+      reps: [],
+      weight: [],
     };
-    setWorkout(updatedWorkout);
+  }, []);
+
+  useEffect(() => {
+    current = {
+      focus: exercise.focus,
+      name: exercise.name,
+      sets: exercise.sets,
+      reprange: exercise.reprange,
+      reps: repitition,
+      weight: weights,
+    };
   }, [repitition, weights]);
 
   const collectData = async (e) => {
@@ -79,9 +83,14 @@ const ExWorkoutInput = ({ exercise, workout, setWorkout, id }) => {
 
   const addToWorkout = async (e) => {
     e.preventDefault();
-
-    console.log(workout);
-    editWorkout(id, workout);
+    updatedWorkout = {
+      muscleGroup: workout.muscleGroup,
+      date: workout.date,
+      exercises: [...workout.exercises, current],
+      complete: workout.complete,
+    };
+    editWorkout(id, updatedWorkout);
+    setSubmit(submit => !submit)
     await setIsOpen(false);
   };
 
@@ -94,6 +103,21 @@ const ExWorkoutInput = ({ exercise, workout, setWorkout, id }) => {
               <thead>
                 <tr>
                   <th>{exercise.name}</th>
+                  <td>
+                    <button
+                      className="col btn btn-success btn-sm"
+                      onClick={collectData}
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      className="col btn btn-danger btn-sm"
+                      type="submit"
+                      value="Exercise Complete"
+                    />
+                  </td>
                 </tr>
                 <tr>
                   <th>RepRange: {exercise.reprange}</th>
@@ -108,25 +132,6 @@ const ExWorkoutInput = ({ exercise, workout, setWorkout, id }) => {
                 <tr>
                   <td>Weight:</td>
                   {weight}
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <button
-                      className="col btn btn-success"
-                      onClick={collectData}
-                    >
-                      Update
-                    </button>
-                  </td>
-                  <td>
-                    <input
-                      className="col btn btn-danger"
-                      type="submit"
-                      value="Exercise Complete"
-                    />
-                  </td>
-                  <td></td>
                 </tr>
               </tbody>
             </table>

@@ -22,8 +22,9 @@ const NewExercise = ({
 
     createExercise(exercise);
 
-    if (isNewExerciseOpen || !isNewExerciseOpen) {
-      setExerciseList((exerciseList) => [...exerciseList, exercise]);
+    if (isNewExerciseOpen) {
+      setNewExerciseOpen(false)
+      setExerciseList(exercise);
     } else {
       nav("/");
     }

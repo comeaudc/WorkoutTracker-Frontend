@@ -26,7 +26,7 @@ const Exercise = () => {
           <h3>Muscle Group: {exercise.focus} </h3>
           <h3>Sets: {exercise.sets}</h3>
           <h3>Rep Range: {exercise.reprange}</h3>
-          <a className="btn btn-success" href={`/exercises/${exercise._id}/edit`}>Edit Exercise</a>
+          <a className="btn btn-success" href={`exercises/${exercise._id}/edit`}>Edit Exercise</a>
           <button className="btn btn-danger" onClick={deleteTheExercise}>Delete</button>
         </div>
       </div>

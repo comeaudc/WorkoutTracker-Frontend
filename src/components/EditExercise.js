@@ -2,21 +2,24 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editExercise, getExercise } from "../services/tracker-api";
 
-const EditExercise = ({
-  setExerciseList,
-  isNewExerciseOpen,
-}) => {
-  const {id} = useParams();
+const EditExercise = () => {
+  const { id } = useParams();
   const nav = useNavigate();
-  const [exercise, setExercise] = useState({})
+  const [exercise, setExercise] = useState({});
 
-  useEffect(()=> {
-    getExercise(id).then((res) => {setExercise(res.data)})
-  })
+  useEffect(() => {
+    getExercise(id).then((res) => {
+      setExercise(res.data);
+    });
+  });
+
+  // useEffect(() => {
+  //   setExercise(up)
+  // })
 
   const editTheExercise = (e) => {
     e.preventDefault();
-    const exercise = {
+    const updatedExercise =  {
       focus: e.target.focus.value,
       name: e.target.name.value,
       sets: e.target.sets.value,
@@ -25,14 +28,10 @@ const EditExercise = ({
       weight: e.target.weight.value,
     };
 
-    editExercise(exercise);
-
-    if (isNewExerciseOpen || !isNewExerciseOpen) {
-      setExerciseList((exerciseList) => [...exerciseList, exercise]);
-    } else {
-      nav("/");
-    }
+    editExercise(id, updatedExercise);
+    nav("/");
   };
+
   return (
     <div className="container">
       <div className="card text-bg-dark">
@@ -96,7 +95,7 @@ const EditExercise = ({
               data-bs-dismiss="modal"
               data-bs-target="#new"
               type="submit"
-              value="Create"
+              value="Edit"
             />
           </form>
         </div>

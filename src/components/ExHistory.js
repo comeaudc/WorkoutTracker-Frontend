@@ -14,8 +14,7 @@ const ExHistory = ({ exercise }) => {
   }
   return (
     <div className="card">
-      <div className="card-body">
-        <h4 className="card-header">{exercise.name}</h4>
+        <h4>{exercise.name}</h4>
         <table className="table table-dark table-hover table-small">
           <thead>
             <tr>
@@ -35,7 +34,6 @@ const ExHistory = ({ exercise }) => {
           </tbody>
         </table>
       </div>
-    </div>
   );
 };
 
