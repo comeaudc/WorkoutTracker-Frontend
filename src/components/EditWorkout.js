@@ -122,10 +122,10 @@ const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
               </div>
               <div className="modal-body">
                 <NewExercise
+                exerciseList={exerciseList}
                   setExerciseList={setExerciseList}
                   isNewExerciseOpen={isNewExerciseOpen}
                   setNewExerciseOpen={setNewExerciseOpen}
-                  setOpen={setNewExerciseOpen}
                 />
               </div>
             </div>

@@ -3,9 +3,9 @@ import { createExercise } from "../services/tracker-api";
 
 const NewExercise = ({
   setExerciseList,
-  setOpen,
   isNewExerciseOpen,
   setNewExerciseOpen,
+  exerciseList
 }) => {
   const nav = useNavigate();
 
@@ -23,8 +23,8 @@ const NewExercise = ({
     createExercise(exercise);
 
     if (isNewExerciseOpen) {
+      setExerciseList([...exerciseList, exercise]);
       setNewExerciseOpen(false)
-      setExerciseList(exercise);
     } else {
       nav("/");
     }
