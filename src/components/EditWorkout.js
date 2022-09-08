@@ -49,7 +49,7 @@ const EditWorkout = ({ isNewExerciseOpen, setNewExerciseOpen }) => {
   };
 
   return (
-    <div className="top container">
+    <div className="container">
       <div className="card text-bg-dark">
         <div className="card-body">
           <div className=" title container-med">
