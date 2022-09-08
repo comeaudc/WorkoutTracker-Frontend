@@ -12,6 +12,7 @@ import Exercise from './components/Exercise';
 import Workout from './components/Workout';
 import EditWorkout from './components/EditWorkout';
 import { useState } from 'react';
+import EditExercise from './components/EditExercise';
 
 function App() {
   const [isNewExerciseOpen, setNewExerciseOpen] = useState(false)
@@ -24,6 +25,7 @@ function App() {
           <Route path='/' element={<NewWorkout />} />
           <Route path='exercises' element={<Exercises />} />
           <Route path='exercises/:id' element={<Exercise />} />
+          <Route path='exercises/:id/edit' element={<EditExercise />} />
           <Route path='newexercise' element={<NewExercise isNewExerciseOpen={isNewExerciseOpen} />} />
           <Route path='inprogress' element={<InProgress />} />
           <Route path='history' element={<PrevWorkouts />} />

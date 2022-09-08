@@ -8,7 +8,6 @@ const HistoryLi = ({ workout }) => {
       <a className="btn btn-secondary" href={`history/${workout._id}`}>
         {workout.muscleGroup}: {date()}
       </a>
-      {workout.commplete == true}
       {workout.complete ? null : (
         <a className="btn btn-success" href={`history/${workout._id}/edit`}>
           Begin Workout?
