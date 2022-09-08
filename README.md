@@ -12,7 +12,7 @@ GET | / | Home Page w/ Directory |
 GET | /exercises | Index of All Exercises |
 POST | /exercises | Exercise Create Route|
 GET | /exercises/:id | Show Page for Exercises |
-DELETE | /exercise/:id | Delete Route for Exercises |
+DELETE | /exercises/:id | Delete Route for Exercises |
 GET | /history | Workout History Index Route |
 GET | /inprogress| Inprogress Workout Route |
 POST | /history| Workout Create Route |
