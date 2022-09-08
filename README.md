@@ -1,4 +1,49 @@
-# Getting Started with Create React App
+# Workout Tracker
+An application that will allow you to save exercises, build and track workouts as well looks at past workouts to see progress.
+
+### Overview
+- [Link to the Deployed App](https://wotrackerdc.herokuapp.com/)
+- [Link to the BackEnd API](https://trackerbackenddcc.herokuapp.com/)
+
+### API Reference
+   VERB 		 | 		  PATH 		 |  	 DESCRIPTION
+------------ | ------------- | -------------------
+GET | / | Home Page w/ Directory |
+GET | /exercises | Index of All Exercises |
+POST | /exercises | Exercise Create Route|
+GET | /exercises/:id | Show Page for Exercises |
+DELETE | /exercise/:id | Delete Route for Exercises |
+GET | /history | Workout History Index Route |
+GET | /inprogress| Inprogress Workout Route |
+POST | /history| Workout Create Route |
+GET | /history/:id | Show Route for Workouts |
+DELETE | /history/:id | Delete Workout from Database |
+PUT | /history/:id | Update Workout Page |
+
+
+### Built With:
+* JavaScript
+* React.js
+* CSS
+* Bootstrap
+* Express.js
+* MongoDB
+
+### Future Updates:
+* Search Bar
+* Link to 3rd party API to look up exercises
+* Button To edit Exercises in WOrkout Builder
+* Authentification for multiple users
+* Optimization & Stylization for mobile use
+* Different Home Screen
+* A page to view exercise stats (i.e. visualizations of strength gain)
+
+
+## Authors:
+- [Dylan Comeau](https://github.com/comeaudc/)
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
